@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 
 import os
 import dj_database_url
+from socket import gethostname
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -101,10 +102,10 @@ DATABASES = {
         'USER': 'root',
         "HOST": "127.0.0.1",
         "PORT": "3306",
-        'OPTIONS': {
-            # 'read_default_file': '/path/to/my.cnf',
-            'init_command': 'SET default_storage_engine=INNODB',
-        },
+        # 'OPTIONS': {
+        #   # 'read_default_file': '/path/to/my.cnf',
+        #    'init_command': 'SET default_storage_engine=INNODB',
+        # },
     }
 }
 #db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
@@ -176,3 +177,49 @@ EMAIL_USE_TLS = True
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'predictions/static')
+
+hostname = gethostname()
+if "Sak1361-mac" in hostname:  # ローカル の場合
+    DEBUG = True  # ローカルでDebug
+    import pymysql
+    pymysql.install_as_MySQLdb()
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'django_predict',  # DB name
+            'USER': 'root',
+            "HOST": "127.0.0.1",
+            "PORT": "3306",
+        }
+    }
+    ALLOWED_HOSTS = []
+else:
+     # 本番環境
+    DEBUG = True
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'console': {
+                'class': 'logging.StreamHandler',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['console'],
+                'level': os.getenv('DJANGO_LOG_LEVEL', 'DEBUG'),
+            },
+        },
+    }
+
+    # DB設定
+    import dj_database_url
+    PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+    db_from_env = dj_database_url.config()
+    DATABASES = {
+        'default': dj_database_url.config()
+    }
+    ALLOWED_HOSTS = ['*']

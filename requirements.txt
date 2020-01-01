@@ -155,5 +155,5 @@ xlrd==1.2.0
 yolk3k==0.9
 zipp==0.6.0
 zope.interface==4.7.1
-psycopg2==2.7.6.1
+psycopg2
 PyMySQL
