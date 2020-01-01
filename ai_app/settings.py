@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-#import dj_database_url
+import dj_database_url
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -97,8 +97,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'django_predict',  # DB name
         'USER': 'root',
-        'HOST': '',
-        'POST': '',
+        "HOST": "127.0.0.1",
+        "PORT": "3306",
         'OPTIONS': {
             # 'read_default_file': '/path/to/my.cnf',
             'init_command': 'SET default_storage_engine=INNODB',
@@ -174,3 +174,8 @@ EMAIL_USE_TLS = True
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+db_from_env = dj_database_url.config()
+DATABASES = {
+    'default': dj_database_url.config()
+}
