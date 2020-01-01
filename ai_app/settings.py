@@ -34,7 +34,6 @@ if not DEBUG:
     import django_heroku  # 追加
     django_heroku.settings(locals())  # 追加
 
-ALLOWED_HOSTS = ['127.0.0.1', '.herokuapp.com']
 ALLOWED_HOSTS = ['*']
 
 # Application definition
@@ -80,7 +79,10 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ai_app.wsgi.application'
-
+db_from_env = dj_database_url.config()
+DATABASES = {
+    'default': dj_database_url.config()
+}
 
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
@@ -174,8 +176,3 @@ EMAIL_USE_TLS = True
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
-
-db_from_env = dj_database_url.config()
-DATABASES = {
-    'default': dj_database_url.config()
-}
