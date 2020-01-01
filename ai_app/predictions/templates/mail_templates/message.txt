@@ -1,0 +1,18 @@
+{{ user.username }} 様 会員登録手続きを行っていただき、ありがとうございます。
+
+下記の内容にて仮登録を行いました。
+
+Username ：{{ user.username }}
+E-mail   ：{{ user.email }}
+Lastname ：{{ user.last_name }}
+Firstname：{{ user.first_name }}
+
+本登録用URLよりサイトにアクセスの上、引き続き会員登録をお願いいたします。
+まだ会員登録手続きは完了しておりませんので、ご注意ください。
+また、登録情報は登録完了後、変更可能となっています。記入ミス等ありましたら登録後に変更してください。
+
+本登録用URL
+{{ protocol}}://{{ domain }}{% url 'predictions:user_create_complete' token %}
+
+Send by Sak1361
+連絡先：sa1361ku@gmail.com

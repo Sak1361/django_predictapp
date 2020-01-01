@@ -1,0 +1,24 @@
+{% extends "predictions/base.html" %}
+{%block title%}Login Page{%endblock%}
+{%block top_title%}Login form{%endblock%}
+{% block content %}
+<form action="" method="POST">
+    <div class="col-md-6 offset-md-3">
+        <div class="card">
+            <div class="card-body">
+                {{ form.non_field_errors }}
+                {% for field in form %}
+                    {{ field }}
+                    {{ field.errors }}
+                    <hr>
+                {% endfor %}
+                <button type="submit" class="btn btn-success btn-lg btn-block" >ログイン</button>
+                <input type="hidden" name="next" value="{{ next }}" />
+                {% csrf_token %}
+                <br>
+                <a href="{%url 'predictions:user_create'%}" class='btn btn-primary btn-lg btn-block'>新規登録はこちら</a>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}

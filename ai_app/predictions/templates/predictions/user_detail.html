@@ -1,0 +1,38 @@
+{% extends "predictions/base.html" %}
+{%block title%}Users detail{%endblock%}
+{%block top_title%}{{ user.username }}のユーザ情報{%endblock%}
+{% block content %}
+<table class="table">
+    <tbody>
+        <tr>
+            <th>user_name</th>
+            <td>{{ user.username }}</td>
+        </tr>
+        <tr>
+            <th>e-mail</th>
+            {%if user.email != ''%}
+            <td>{{ user.email }}</td>
+            {%else%}
+            <td>未登録</td>
+            {%endif%}
+        </tr>
+        <tr>
+            <th>last_name</th>
+            {%if user.last_name != ''%}
+            <td>{{ user.last_name }}</td>
+            {%else%}
+            <td>未登録</td>
+            {%endif%}
+        </tr>
+        <tr>
+            <th>first_name</th>
+            {%if user.first_name != ''%}
+            <td>{{ user.first_name }}</td>
+            {%else%}
+            <td>未登録</td>
+            {%endif%}
+        </tr>
+    </tbody>
+</table>
+<a href="{%url 'predictions:predict'%}" class='btn btn-primary '>戻る</a>
+{% endblock %}

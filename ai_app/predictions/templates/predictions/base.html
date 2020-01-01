@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang='ja'>
+    <head>
+        <meta charset='UTF-8'>
+        {%load static%}
+        {%load bootstrap4%}
+        {%bootstrap_css%}
+        <link rel='stylesheet' type='text/css' href="{%static 'predictions/css/style.css'%}">
+        {%bootstrap_javascript jquery='full'%}
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>バイク・車判定 {%block title%}{%endblock%}</title>
+    </head>
+    <body>
+        <nav class="navbar navbar-extend-lg navbar-light bg-light">
+            <a class='navbar-brand' href="{% url 'predictions:index' %}">{%block top_title%}画像判定AIアプリ{%endblock%}</a>
+            <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#Navber" aria-controls="Navber" aria-expanded="false" aria-label="ナビゲーションの切替">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="Navber">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'admin:index'%}">管理サイト</a>
+                    </li>
+                    <li class="nav-item">
+                        {% if user.is_authenticated %}
+                        <a class="nav-item nav-link" href="{% url 'predictions:user_detail' user.pk %}">ユーザー情報閲覧</a>
+                        <a class="nav-item nav-link" href="{% url 'predictions:user_update' user.pk %}">ユーザー情報更新</a>
+                        <a style="float:left" class="nav-link" href="{% url 'predictions:logout'%}">Hi! {{request.user}} Logout?</a>
+                        <a style="float:right" class="nav-item" >Now {{request.user.pk}} users active. </a>
+                        {% else %}
+                        <a class="nav-link" href="{% url 'predictions:login'%}">Welcome! please <b>Login</b></a>
+                        {% endif %}
+                    </li>
+                </ul>
+            </div>
+        </nav>
+        <div class='container'>
+            {%block content%}{%endblock%}
+        </div>
+    </body>
+</html>

@@ -1,0 +1,11 @@
+{% extends "predictions/base.html" %}
+{%block title%}Sign up{%endblock%}
+{%block top_title%}仮登録完了{%endblock%}
+{% block content %}
+<p>
+    会員登録確認メールを送信しました。まだ、会員登録は完了していません。<br>
+    確認メールを送信しましたので、確認メールに記載されているリンクから本登録を行ってください。
+    メールが届かない場合は、メールアドレスに間違いがある可能性があります。再度登録をお願いします。
+</p>
+ <a class="btn btn-primary btn-lg" href="{% url 'predictions:login' %}">ログインページ</a>
+{% endblock %}

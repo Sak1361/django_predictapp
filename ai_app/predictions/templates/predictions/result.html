@@ -1,0 +1,34 @@
+{% extends "predictions/base.html" %}
+
+{% block title %}バイク・車推定結果
+{% endblock  %}
+
+{% block content %}
+<div>
+    <h4 class='mt-4 mb-5 border-bottom'>バイク・車推定結果</h4>
+    <table class='table'>
+        <tbody>
+            <tr>
+                <td>ファイル名</td>
+                <td>{{ image_name }} </td>
+            </tr>
+            <tr>
+                <td>画像ファイル</td>
+                <td>
+                    <img style="width:30vw" class='preview-img' src={{image_data}}>
+                </td>
+            </tr>
+            <tr>
+                <td>推定ラベル</td>
+                <td>{{ class_label }} </td>
+            </tr>
+            <tr>
+                <td>推定確率</td>
+                <td>{{score}} </td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="{%url 'predictions:index'%}" class='btn btn-primary'>画像選択メニューに戻る</a> 
+
+</div>
+{%endblock%}

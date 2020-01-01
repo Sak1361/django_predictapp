@@ -1,0 +1,21 @@
+{% extends "predictions/base.html" %}
+{%block title%}Update details{%endblock%}
+{%block top_title%}{{ user.username }}のユーザ情報更新ページ{%endblock%}
+{% block content %}
+<form action="" method="POST">
+    {{ form.non_field_errors }}
+    <table class="table">
+        <tbody>
+            {% for field in form %}
+                <tr>
+                    <th><label for="{{ field.id_for_label }}">{{ field.label }}</label></th>
+                    <td>{{ field }} {{ field.errors }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% csrf_token %}
+    <button type="submit" class="btn btn-success btn-lg" >送信</button>
+    <a href="{%url 'predictions:predict'%}" class="btn btn-primary btn-lg">戻る</a>
+</form>
+{% endblock %}
