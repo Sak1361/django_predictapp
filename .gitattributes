@@ -1,1 +1,2 @@
 ai_app/predictions/ml_models/vgg16_transfer.h5 filter=lfs diff=lfs merge=lfs -text
+predictions/ml_models/vgg16_transfer.h5 filter=lfs diff=lfs merge=lfs -text
