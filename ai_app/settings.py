@@ -174,8 +174,8 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'predictions/static')
 hostname = gethostname()
 if "Sak1361-mac" in hostname:  # ローカル の場合
     DEBUG = True  # ローカルでDebug
-    import pymysql
-    pymysql.install_as_MySQLdb()
+    #import pymysql
+    # pymysql.install_as_MySQLdb()
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
