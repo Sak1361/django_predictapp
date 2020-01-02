@@ -74,12 +74,6 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'ai_app.wsgi.application'
-db_from_env = dj_database_url.config()
-DATABASES = {
-    'default': dj_database_url.config()
-}
-
 # Database
 # https://docs.djangoproject.com/en/2.2/ref/settings/#databases
 """
@@ -97,10 +91,11 @@ DATABASES = {
         'USER': 'root',
         "HOST": "127.0.0.1",
         "PORT": "3306",
-        # 'OPTIONS': {
-        #   # 'read_default_file': '/path/to/my.cnf',
-        #    'init_command': 'SET default_storage_engine=INNODB',
-        # },
+        'OPTIONS': {
+            # 'read_default_file': '/path/to/my.cnf',
+            'init_command': 'SET default_storage_engine=INNODB',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+        },
     }
 }
 #db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
@@ -188,6 +183,11 @@ if "Sak1361-mac" in hostname:  # ローカル の場合
             'USER': 'root',
             "HOST": "127.0.0.1",
             "PORT": "3306",
+            'OPTIONS': {
+                # 'read_default_file': '/path/to/my.cnf',
+                'init_command': 'SET default_storage_engine=INNODB',
+                'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
+            },
         }
     }
     ALLOWED_HOSTS = []
