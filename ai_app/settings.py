@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-import dj_database_url
 from socket import gethostname
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -24,13 +23,6 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '&02n-2@66o#w+h-92gd(da-*zc5bgp7l-l5g1siq1p5)aosu&c'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
-try:
-    from .local_settings import *
-except ImportError:
-    pass
-
-ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -84,20 +76,6 @@ DATABASES = {
     }
 }
 """
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'django_predict',  # DB name
-        'USER': 'root',
-        "HOST": "127.0.0.1",
-        "PORT": "3306",
-        'OPTIONS': {
-            # 'read_default_file': '/path/to/my.cnf',
-            'init_command': 'SET default_storage_engine=INNODB',
-            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
-        },
-    }
-}
 #db_from_env = dj_database_url.config(conn_max_age=600, ssl_require=True)
 # DATABASES['default'].update(db_from_env)
 
@@ -142,8 +120,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
-STATIC_URL = '/static/'
-
 # 管理サイトのログイン機能を通常のログイン機能として使う
 #LOGIN_URL = 'admin:login'
 
@@ -165,8 +141,6 @@ EMAIL_USE_TLS = True
 
 # コマンドライン出力用
 #EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'predictions/static')
@@ -218,3 +192,7 @@ else:
         'default': dj_database_url.config()
     }
     ALLOWED_HOSTS = ['*']
+    # Configure Django App for Heroku.
+    import django_heroku
+    django_heroku.settings(locals())
+    del DATABASES['default']['OPTIONS']['sslmode']
