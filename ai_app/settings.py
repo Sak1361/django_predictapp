@@ -46,6 +46,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'whitenoise.middleware.WhiteNoiseMiddleware',  # Heroku用追加
+    'global_login_required.GlobalLoginRequiredMiddleware',  # ログインしなくてもいいページ設定
 ]
 
 ROOT_URLCONF = 'ai_app.urls'
