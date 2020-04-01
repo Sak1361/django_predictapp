@@ -1,18 +1,9 @@
 {% extends "predictions/base.html" %}
+{%block title%}Home{%endblock%}
+{%block top_title%}Track&Predict{%endblock%}
+{%block content%}
 
-{% block title %}バイク・車推定アプリメニュー
-{% endblock  %}
+<a href="{%url 'predictions:predict_home'%}" class='btn btn-success'>バイク車判定</a> 
+<a href="{%url 'predictions:search'%}" class='btn btn-primary'>追跡番号検索くん</a> 
 
-{% block content %}
-<div>
-    <h4 class='mt-4 mb-5 border-bottom'>バイク・車推定アプリメニュー</h4>
-    <p>画像ファイルを選択してPredictボタンをクリック</p>
-    <form action="{%url 'predictions:predict'%}" method='post' class='form' enctype="multipart/form-data">
-        {% csrf_token %} <!-- クロスサイトリクエストフォージェリ -->
-        {{ form.as_p }}
-        <button type='submit' class='btn btn-primary'>Predict!</button>
-        {{ form.media }}
-        <img id="image-preview" style="width:15vw; float:left;">
-    </form>
-</div>
-{% endblock  %}
+{% endblock%}

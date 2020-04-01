@@ -3,8 +3,10 @@ from . import views
 
 app_name = 'predictions'
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('predict/', views.predict, name='predict'),
+    path('', views.Index.as_view(), name='index'),
+    path('predict/', views.predict_home, name='predict_home'),
+    path('predict/result/', views.predict, name='predict'),
+    path('tracking/', views.tracking_ship, name='search'),
     path('login/', views.Login.as_view(), name='login'),
     path('logout/', views.Logout.as_view(), name='logout'),
     path('top/', views.Top.as_view(), name='top'),

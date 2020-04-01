@@ -1,0 +1,98 @@
+{% extends "predictions/base.html" %}
+{% load lookup %}   <!--変数を引数にする-->
+{% load surplus%}   <!--余剰算-->
+{% load sub%}   <!--減算-->
+
+{%block title%}追跡番号検索くん{%endblock%}
+{%block top_title%}Track{%endblock%}
+
+{% block content %}
+
+<div class="container u-overlay__inner u-ver-center u-content-space">
+    <div class="row justify-content-center">
+    <div class="col-12">
+        <div class="text-left">
+        <p class="text-uppercase u-letter-spacing-sm"></p>
+        <h4 class="display-sm-4 display-lg-3">追跡番号一括検索くん</h4>
+        </div>
+    </div>
+    </div>
+</div>
+<main role="main">
+    <div class="container">
+        <section class="u-content-space">
+            <form>
+                <div class="row mb-4">
+                    <div class="col-lg-12 mb-3">
+                        <div class="card">
+                            <div class="card-header">
+                                <h3 class="h6 mb-0">Tracking_Shipment</h3>
+                            </div>
+                            <div class="card-body">
+                                <div class="form-group mb-4">
+                                {% csrf_token %} <!-- クロスサイトリクエストフォージェリ -->
+                                <input type="text"  class="form-control mb-3" placeholder="追跡番号" name="track_number">
+                                <input type="submit" value="検索" class="form-control btn-outline-primary" id="defaultInput" placeholder="Placeholder">
+                            </div>   
+                        </div>
+                        <!-- End Card Body -->
+                        </div>
+                    </div>
+                <!-- End Form Controls -->
+                </div>
+            </form>
+        
+            <div class="card u-box-shadow-sm bg-white rounded">
+                <div class="card-header">
+                    {% if track_number|length > 9 and track_number|length < 20%}
+                    <div class="col-lg-12 ">
+                        <h2 class="h4">検索番号：{{ track_number }}</h2>
+                    </div>
+                    {%elif track_number|length > 1 %}
+                    <div class="col-lg-12 ">
+                        <h2 class="h4">桁数異常。</h2>
+                    </div>
+                    {%else%}
+                    <div class="col-lg-12 ">
+                        <h2 class="h4">検索する番号を入力してください。</h2>
+                    </div>
+                    {%endif%}
+                </div>
+                <div class="card-body　container pull-left table-responsive">
+                    {% for key,name in targets.items %}
+                        <table class="table rounde table-striped table-bordered">
+                            {% for d in data|lookup:key%}
+                                {%if 'http' in d%}
+                                    <a href={{ d }} target="blank">
+                                    <button type="button" class="btn btn-sm btn-outline-primary h5">{{name}}</button>
+                                    </a>
+                                {% elif d == '該当なし'%}
+                                    <tr>
+                                        <td><strong>{{ d }}</strong></td>
+                                    </tr>
+                                {% else %}
+                                    {%if forloop.counter0 == 1%}
+                                        <tr class="success">
+                                            <td>{{ d }}</td>
+                                    {%elif forloop.counter0 < td_num|lookup:key%}
+                                        <td>{{ d }}</td>
+                                    {%elif forloop.counter0 == td_num|lookup:key%}
+                                        <td>{{ d }}</td>
+                                        </tr>   <!--題を閉める-->
+                                        <tr> <!--新しいテーブル-->
+                                    {%else%}
+                                        <td><strong>{{ d }}</strong></td>
+                                    {%endif%}
+                                    {% if forloop.last %}
+                                       </tr>
+                                    {%endif%}
+                                {%endif%}
+                            {%endfor%}
+                    {%endfor%}
+                    </table>
+                </div>
+            </div>
+        </section>
+    </div>
+</main>
+{% endblock  %}

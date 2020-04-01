@@ -16,6 +16,6 @@
     </table>
     {% csrf_token %}
     <button type="submit" class="btn btn-success btn-lg" >送信</button>
-    <a href="{%url 'predictions:predict'%}" class="btn btn-primary btn-lg">戻る</a>
+    <a href="{%url 'predictions:index'%}" class="btn btn-primary btn-lg">戻る</a>
 </form>
 {% endblock %}

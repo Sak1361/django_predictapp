@@ -9,11 +9,16 @@
         {%bootstrap_javascript jquery='full'%}
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
-        <title>バイク・車判定 {%block title%}{%endblock%}</title>
+        <title>{%block title%}{%endblock%}</title>
     </head>
     <body>
         <nav class="navbar navbar-extend-lg navbar-light bg-light">
-            <a class='navbar-brand' href="{% url 'predictions:index' %}">{%block top_title%}画像判定AIアプリ{%endblock%}</a>
+            <a class='navbar-brand' href="{% url 'predictions:index' %}">{%block top_title%}Track&Predict{%endblock%}</a>
+            {% if request.path == '/tracking/'%}
+            <a class="nav-item nav-link" href="{% url 'predictions:predict_home'%}">Change バイク・車推定</a>
+            {%elif request.path == '/predict/'%}
+            <a class="nav-item nav-link" href="{% url 'predictions:search'%}">Change 追跡番号一括検索くん</a>
+            {%endif%}
             <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#Navber" aria-controls="Navber" aria-expanded="false" aria-label="ナビゲーションの切替">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -24,10 +29,15 @@
                     </li>
                     <li class="nav-item">
                         {% if user.is_authenticated %}
+                            {% if request.path == '/tracking/'%}
+                            <a class="nav-item nav-link" href="{% url 'predictions:predict_home'%}">バイク・車推定</a>
+                            {%elif request.path == '/predict/'%}
+                            <a class="nav-item nav-link" href="{% url 'predictions:search'%}">追跡番号一括検索くん</a>
+                            {%endif%}
                         <a class="nav-item nav-link" href="{% url 'predictions:user_detail' user.pk %}">ユーザー情報閲覧</a>
                         <a class="nav-item nav-link" href="{% url 'predictions:user_update' user.pk %}">ユーザー情報更新</a>
                         <a style="float:left" class="nav-link" href="{% url 'predictions:logout'%}">Hi! {{request.user}} Logout?</a>
-                        <a style="float:right" class="nav-item" >Now {{request.user.pk}} users active. </a>
+                        <!-- <a style="float:right" class="nav-item" >Now {{request.user.pk}} users active. </a> -->
                         {% else %}
                         <a class="nav-link" href="{% url 'predictions:login'%}">Welcome! please <b>Login</b></a>
                         {% endif %}

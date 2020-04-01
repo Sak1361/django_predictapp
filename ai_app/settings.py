@@ -124,6 +124,7 @@ USE_TZ = True
 #LOGIN_URL = 'admin:login'
 
 LOGIN_URL = 'predictions:login'
+LOGOUT_URL = 'tracking:logout'  # ログアウト
 # ログイン後トップページにリダイレクト
 LOGIN_REDIRECT_URL = 'predictions:predict'
 # ログアウト後はログインページに
@@ -196,3 +197,11 @@ else:
     import django_heroku
     django_heroku.settings(locals())
     del DATABASES['default']['OPTIONS']['sslmode']
+
+PUBLIC_PATHS = [  # ログインが必要ないページ
+    '/login/',
+    '/top/',
+    '/user_create/',
+    '/user_create/done/',
+    '/user_create/complete/<token>',
+]
