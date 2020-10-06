@@ -1,3 +1,4 @@
 herokuでデプロイ
-現在は車とバイク判定。めっちゃ重い
+車とバイク判定+追跡番号検索。
+
 https://django-predict.herokuapp.com
