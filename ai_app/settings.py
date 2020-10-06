@@ -157,6 +157,7 @@ if "Sak1361-mac" in hostname:  # ローカル の場合
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'django_predict',  # DB name
             'USER': 'root',
+            'PASSWORD': 'pass',
             "HOST": "127.0.0.1",
             "PORT": "3306",
             'OPTIONS': {

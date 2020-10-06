@@ -1,3 +1,5 @@
+import datetime
+from django.utils import timezone
 from django.db import models
 from tensorflow import keras
 from keras.models import load_model
@@ -47,3 +49,16 @@ class Photo(models.Model):
             base64_img = base64.b64encode(img.read()).decode()
 
             return 'data:' + img.file.content_type + ';base64,' + base64_img
+
+
+class Schedule(models.Model):
+    """スケジュール"""
+    summary = models.CharField('概要', max_length=50)
+    description = models.TextField('詳細な説明', blank=True)
+    start_time = models.TimeField('開始時間', default=datetime.time(7, 0, 0))
+    end_time = models.TimeField('終了時間', default=datetime.time(7, 0, 0))
+    date = models.DateField('日付')
+    created_at = models.DateTimeField('作成日', default=timezone.now)
+
+    def __str__(self):
+        return self.summary
