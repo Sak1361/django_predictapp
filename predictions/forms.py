@@ -81,7 +81,6 @@ class User_create_form(UserCreationForm):
 
 class BS4ScheduleForm(forms.ModelForm):
     """Bootstrapに対応するためのModelForm"""
-
     class Meta:
         model = Schedule
         fields = ('summary', 'description', 'start_time', 'end_time')

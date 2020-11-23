@@ -1,12 +1,11 @@
 {% extends 'predictions/base.html' %}
 {%block title%}Calendar{%endblock%}
-{%block top_title%}Calendar{%endblock%}
+{%block top_title%}Calendar3{%endblock%}
 {% block content %}
 <style>
   table {
     table-layout: fixed;
   }
-
   td > div {
     height: 100px;
     overflow: hidden;
@@ -28,15 +27,21 @@
   <tbody>
     {% for week_day_schedles in month_day_schedules %}
     <tr>
-      {% for day, schedules in week_day_schedles.items %} {% if now == day %}
-      <td class="table-success">{% else %}</td>
-
+      {% for day, schedules in week_day_schedles.items %}
+      {% if now == day %}
+      <td class="table-success">
+      {% else %}
+      </td>
       <td>
-        {% endif %}
-
+      {% endif %}
         <div>
-          {% if month_current.month != day.month %} {{ day | date:"m/d" }} {% else %} {{ day.day }} {% endif %} {% for schedule in schedules %}
-          <p>{{ schedule.summary }}</p>
+          {% if month_current.month != day.month %}
+            {{ day | date:"m/d" }}
+          {% else %}
+            {{ day.day }}
+          {% endif %}
+          {% for schedule in schedules %}
+          <p>aaaaaa{{ schedule.summary }}</p><!--スケジュール該当箇所-->
           {% endfor %}
         </div>
       </td>

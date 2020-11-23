@@ -1,6 +1,6 @@
 {% extends 'predictions/base.html' %}
 {%block title%}Calendar{%endblock%}
-{%block top_title%}Calendar{%endblock%}
+{%block top_title%}Calendar1{%endblock%}
 {% block content %}
 <a href="{% url 'predictions:month' month_previous.year month_previous.month %}">前月</a>
 {{ month_current | date:"Y年m月" }}

@@ -1,6 +1,6 @@
 {% extends 'predictions/base.html' %} 
 {%block title%}Calendar{%endblock%}
-{%block top_title%}Calendar{%endblock%}
+{%block top_title%}Calendar6{%endblock%}
 {% block content %}
 <style>
   table {
@@ -24,15 +24,27 @@
     </thead>
     <tbody>
       {% for week_day_forms in month_day_forms %}
-      <tr>
-        {% for day, forms in week_day_forms.items %} {% if now == day %}
-        <td class="table-success">{% else %}</td>
-        <td>
+        <tr>
+        {% for day, forms in week_day_forms.items %}
+          {% if now == day %}
+            <td class="table-success">
+          {% else %}
+            </td>
+            <td>
           {% endif %}
-          <div>{% if month_current.month != day.month %} {{ day | date:"m/d" }} {% else %} {{ day.day }} {% endif %} {% for form in forms %} {{ form.as_p }} {% endfor %}</div>
-        </td>
+          <div>
+          {% if month_current.month != day.month %}
+            {{ day | date:"m/d" }}
+          {% else %}
+            {{ day.day }}
+          {% endif %}
+          {% for form in forms %}
+            {{ form.as_p }}
+          {% endfor %}
+          </div>
+          </td>
         {% endfor %}
-      </tr>
+        </tr>
       {% endfor %}
     </tbody>
   </table>
